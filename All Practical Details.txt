@@ -1,0 +1,752 @@
+--TCP - Prime Number
+
+import java.net.*;
+import java.io.*;
+class tcpClientPrime
+{
+public static void main(String args[])
+{
+try
+{
+Socket cs = new Socket("LocalHost",8001); 
+BufferedReader infu = new BufferedReader(new
+InputStreamReader(System.in));
+System.out.println("Enter a number : ");
+int a = Integer.parseInt(infu.readLine());
+DataOutputStream out = new
+DataOutputStream(cs.getOutputStream());
+out.writeInt(a);
+DataInputStream in = new DataInputStream(cs.getInputStream()); System.out.println(in.readUTF()); cs.close();
+}
+catch(Exception e)
+{
+System.out.println(e.toString());
+}
+}
+}
+
+
+import java.net.*;
+import java.io.*;
+class tcpServerPrime
+{
+public static void main(String args[])
+{
+try
+{
+ServerSocket ss = new ServerSocket(8001);
+System.out.println("Server Started...............");
+Socket s = ss.accept();
+DataInputStream in = new DataInputStream(s.getInputStream()); 
+int x= in.readInt();
+DataOutputStream otc = new DataOutputStream(s.getOutputStream()); 
+int y = x/2;
+if(x ==1 || x ==2 || x ==3)
+{
+otc.writeUTF(x + "is Prime");
+System.exit(0);
+}
+for(int i=2; i<=y; i++)
+{
+if(x%i != 0)
+{
+otc.writeUTF(x + " is Prime");
+}
+else
+{
+otc.writeUTF(x + " is not Prime");
+}
+}
+}
+catch(Exception e)
+
+{
+System.out.println(e.toString());
+}
+}
+}
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+--TCP - Add Number
+
+import java.net.*;
+import java.io.*;
+class tcpClientAddition
+{
+public static void main(String args[])
+{
+try
+{
+Socket cs = new Socket("LocalHost",8001); 
+BufferedReader infu = new BufferedReader(new InputStreamReader(System.in));
+
+System.out.println("Enter 1 number : ");
+int a = Integer.parseInt(infu.readLine());
+
+System.out.println("Enter 2 number : ");
+int b = Integer.parseInt(infu.readLine());
+
+DataOutputStream out = new DataOutputStream(cs.getOutputStream());
+out.writeInt(a);
+out.writeInt(b);
+
+DataInputStream in = new DataInputStream(cs.getInputStream()); 
+System.out.println(in.readUTF()); 
+cs.close();
+}
+catch(Exception e)
+{
+System.out.println(e.toString());
+}
+}
+}
+
+
+import java.net.*;
+import java.io.*;
+class tcpServerAddition
+{
+	public static void main(String args[])
+	{
+	try
+	{
+		ServerSocket ss = new ServerSocket(8001);
+		System.out.println("Server Started...............");
+		Socket s = ss.accept();
+		DataInputStream in = new DataInputStream(s.getInputStream()); 
+		int x = in.readInt();
+		int y = in.readInt();
+		DataOutputStream otc = new DataOutputStream(s.getOutputStream()); 
+		int z = x+y;
+
+			otc.writeUTF("Additon is: " + z);
+			System.exit(0);
+
+
+	}
+	catch(Exception e)
+	{
+		System.out.println(e.toString());
+	}
+	
+	}
+}
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+--TCP - Squre and Cube Number
+
+import java.net.*;
+import java.io.*;
+class tcpClientOperations
+{
+ public static void main(String args[])
+ {
+ try
+ {
+ Socket cs = new Socket("LocalHost",8001);
+ BufferedReader infu = new BufferedReader(new InputStreamReader(System.in));
+ System.out.println("Enter a number : ");
+ int num = Integer.parseInt(infu.readLine());
+ 
+ DataOutputStream out = new DataOutputStream(cs.getOutputStream());
+ out.writeInt(num);
+ DataInputStream in = new DataInputStream(cs.getInputStream());
+ System.out.println(in.readUTF());
+ cs.close();
+ }
+ catch(Exception e)
+ {
+ System.out.println(e.toString());
+ }
+ }
+}
+
+
+import java.net.*;
+import java.io.*;
+import java.util.*;
+class tcpServerOperations
+{
+ public static void main(String args[])
+ {
+ try
+ {
+ ServerSocket ss = new ServerSocket(8001);
+ System.out.println("Server Started...............");
+ Socket s = ss.accept();
+ DataInputStream in = new DataInputStream(s.getInputStream());
+ int x= in.readInt();
+ DataOutputStream otc = new DataOutputStream(s.getOutputStream());
+ //Square
+ System.out.println("Square of " + x + " is: " + Math.pow(x, 2));
+ 
+ //Square Root
+ System.out.println("Square Root of " + x + " is: " + Math.sqrt(x));
+ 
+ //Cube
+ System.out.println("Cube of " + x + " is: " + Math.pow(x, 3));
+ 
+ //Cube root
+ System.out.println("Cube root of "+ x +" is: "+Math.cbrt(x));
+ 
+ }
+ catch(Exception e)
+ {
+ System.out.println(e.toString());
+ }
+ }
+}
+
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+--TCP - Client Server communication model 
+
+
+import java.net.*;
+import java.io.*;
+class Chatclient
+{
+public static void main(String args[])
+{
+try
+{
+Socket s = new Socket("Localhost",8000); 
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+DataOutputStream out = new DataOutputStream(s.getOutputStream()); 
+BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+String msg;
+System.out.println("To stop chatting with server type STOP");
+System.out.print("Client Says: ");
+while((msg = br.readLine()) != null)
+{
+out.writeBytes(msg+"\n");
+if(msg.equals("STOP"))
+break;
+System.out.println("Server Says : "+in.readLine());
+System.out.print("Client Says : ");
+}
+br.close();
+in.close();
+out.close();
+s.close();
+}
+catch(Exception e)
+{
+e.printStackTrace();
+}
+}
+}
+
+import java.net.*;
+import java.io.*;
+class Chatserver
+{
+public static void main(String args[])
+{
+try
+{
+ServerSocket ss = new ServerSocket(8000);
+System.out.println("Waiting for client to connect.."); 
+Socket s = ss.accept();
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+DataOutputStream out = new DataOutputStream(s.getOutputStream()); 
+BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+String receive, send;
+while((receive = in.readLine()) != null)
+{
+if(receive.equals("STOP"))
+break;
+System.out.println("Client Says : "+receive);
+System.out.print("Server Says : ");
+send = br.readLine();
+out.writeBytes(send+"\n");
+}
+br.close();
+in.close();
+out.close();
+s.close();
+}
+catch(Exception e)
+{
+e.printStackTrace();
+}
+}
+}
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+UDP - Even and odd number
+
+import java.io.*;
+import java.net.*;
+public class udpClientEO
+{
+public static void main(String args[])
+{
+try
+{
+DatagramSocket ds = new DatagramSocket(1000); 
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+System.out.println("Enter a number : ");
+String num = br.readLine();
+byte b[] = new byte[1024];
+b=num.getBytes();
+DatagramPacket dp = new DatagramPacket(b,b.length,InetAddress.getLocalHost(),2000);
+ds.send(dp);
+byte b1[] = new byte[1024];
+DatagramPacket dp1 = new DatagramPacket(b1,b1.length);
+ds.receive(dp1);
+String str = new String(dp1.getData(),0,dp1.getLength()); 
+System.out.println(str);
+}
+catch(Exception e)
+{
+e.printStackTrace();
+}
+}
+}
+
+import java.io.*;
+import java.net.*;
+public class udpServerEO
+{
+public static void main(String args[])
+{
+try
+{
+DatagramSocket ds = new DatagramSocket(2000);
+ byte b[] = new byte[1024];
+DatagramPacket dp = new DatagramPacket(b,b.length); 
+ds.receive(dp);
+String str = new String(dp.getData(),0,dp.getLength());
+ System.out.println(str);
+int a= Integer.parseInt(str);
+String s= new String();
+if (a%2 == 0)
+s = "Number is even";
+else
+s = "Number is odd";
+byte b1[] = new byte[1024];
+b1 = s.getBytes();
+DatagramPacket dp1 = new
+DatagramPacket(b1,b1.length,InetAddress.getLocalHost(),1000);
+ds.send(dp1);
+}
+catch(Exception e)
+{
+e.printStackTrace();
+}
+}
+}
+
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+UDP - Factorial number
+
+import java.io.*;
+import java.net.*;
+public class udpClientFact
+{
+ public static void main(String args[])
+ {
+ try
+ {
+ DatagramSocket ds = new DatagramSocket(1000);
+ BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ System.out.println("Enter a number : ");
+ String num = br.readLine();
+ byte b[] = new byte[1024];
+ b=num.getBytes();
+ DatagramPacket dp = new DatagramPacket(b,b.length,InetAddress.getLocalHost(),2000);
+ ds.send(dp);
+ byte b1[] = new byte[1024];
+ DatagramPacket dp1 = new DatagramPacket(b1,b1.length);
+ ds.receive(dp1);
+ String str = new String(dp1.getData(),0,dp1.getLength());
+ System.out.println(str);
+ }
+ catch(Exception e)
+ {
+ e.printStackTrace();
+ }
+ }
+}
+
+import java.io.*;
+import java.net.*;
+public class udpServerFact
+{
+ public static void main(String args[])
+ {
+ try
+ {
+ DatagramSocket ds = new DatagramSocket(2000);
+ byte b[] = new byte[1024];
+ DatagramPacket dp = new DatagramPacket(b,b.length);
+ ds.receive(dp);
+ String str = new String(dp.getData(),0,dp.getLength());
+ System.out.println(str);
+ int a= Integer.parseInt(str);
+ int f = 1, i;
+ String s= new String();
+ for(i=1;i<=a;i++)
+ {
+ f=f*i;
+ }
+ s=Integer.toString(f);
+ String str1 = "The Factorial of " + str + " is : " + f;
+ byte b1[] = new byte[1024];
+ b1 = str1.getBytes();
+ DatagramPacket dp1 = new DatagramPacket(b1,b1.length,InetAddress.getLocalHost(),1000);
+ ds.send(dp1);
+ }
+ catch(Exception e)
+ {
+ e.printStackTrace();
+ }
+ }
+}
+
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+--RPC Programming
+
+values - add 2 3
+
+import java.io.*;
+import java.net.*;
+class RPCClient
+{
+RPCClient()
+{
+try
+{
+InetAddress ia = InetAddress.getLocalHost();
+DatagramSocket ds = new DatagramSocket();
+DatagramSocket ds1 = new DatagramSocket(1300);
+System.out.println("\nRPC Client\n");
+System.out.println("Enter method name and parameter like add");
+while (true)
+{
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+String str = br.readLine();
+byte b[] = str.getBytes();
+DatagramPacket dp = new
+DatagramPacket(b,b.length,ia,1200);
+ds.send(dp);
+dp = new DatagramPacket(b,b.length);
+ds1.receive(dp);
+String s = new String(dp.getData(),0,dp.getLength()); System.out.println("\nResult = " + s + "\n");
+}
+}
+catch (Exception e)
+{
+e.printStackTrace();
+}
+}
+public static void main(String[] args)
+{
+new RPCClient();
+}
+}
+
+import java.util.*;
+import java.net.*;
+class RPCServer
+{
+DatagramSocket ds;
+DatagramPacket dp;
+String str,methodName,result;
+int val1,val2;
+RPCServer()
+{
+try
+{
+ds=new DatagramSocket(1200);
+byte b[]=new byte[4096];
+while(true)
+{
+dp=new DatagramPacket(b,b.length);
+ds.receive(dp);
+str=new String(dp.getData(),0,dp.getLength());
+if(str.equalsIgnoreCase("q"))
+{
+System.exit(1);
+}
+else
+{
+StringTokenizer st = new StringTokenizer(str," "); int i=0;
+while(st.hasMoreTokens())
+
+{
+String token=st.nextToken();
+methodName=token;
+val1 = Integer.parseInt(st.nextToken());
+val2 = Integer.parseInt(st.nextToken());
+}
+}
+System.out.println(str);
+InetAddress ia = InetAddress.getLocalHost();
+if(methodName.equalsIgnoreCase("add"))
+{
+result= "" + add(val1,val2);
+}
+else if(methodName.equalsIgnoreCase("sub"))
+{
+result= "" + sub(val1,val2);
+}
+else if(methodName.equalsIgnoreCase("mul"))
+{
+result= "" + mul(val1,val2);
+}
+else if(methodName.equalsIgnoreCase("div"))
+{
+result= "" + div(val1,val2);
+}
+byte b1[]=result.getBytes();
+DatagramSocket ds1 = new DatagramSocket(); DatagramPacket dp1 = new
+DatagramPacket(b1,b1.length,InetAddress.getLocalHost(), 1300); System.out.println("result : "+result+"\n"); ds1.send(dp1);
+}
+}
+catch (Exception e)
+{
+e.printStackTrace();
+}
+}
+public int add(int val1, int val2)
+{
+return val1+val2;
+}
+public int sub(int val3, int val4)
+{
+return val3-val4;
+}
+public int mul(int val3, int val4)
+{
+return val3*val4;
+}
+public int div(int val3, int val4)
+{
+return val3/val4;
+}
+public static void main(String[] args)
+{
+new RPCServer();
+}
+}
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+Web Service
+--Add
+
+@WebMethod(operationName = "add")
+ public int add(@WebParam(name = "i") int i, @WebParam(name = "j") int j) {
+ int k = i + j;
+ return k;
+ }
+
+--Sub
+
+@WebMethod(operationName = "add")
+ public int add(@WebParam(name = "i") int i, @WebParam(name = "j") int j) {
+ int k = i + j;
+ return k;
+ }
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+TODO Comments
+
+public static void main(String[] args) {
+ try{
+ // Addition
+ int a1 = 3;
+ int a2 = 4;
+ int addResult = add(a1, a2);
+ System.out.println("Addition of " + a1 + " and " + a2 + " is " + addResult);
+ 
+ // Substraction
+ int s1 = 5;
+ int s2 = 4;
+ int subResult = sub(s1, s2);
+ System.out.println("Substraction of "+ s1 + " and "+ s2 + " is " + subResult);
+ }catch(Exception ex) {
+ System.out.println("Exception: " + ex);
+ }
+ }
+
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+<%-- start web service invocation --%><hr/>
+ <%
+ try {
+ org.me.calculator.CalculatorWS_Service service = new org.me.calculator.CalculatorWS_
+Service();
+ org.me.calculator.CalculatorWS port = service.getCalculatorWSPort();
+ // TODO initialize WS operation arguments here
+ int i = 0;
+ int j = 0;
+ // TODO process result here
+ int result = port.add(i, j);
+ out.println("Result = "+result);
+ } catch (Exception ex) {
+ // TODO handle custom exceptions here
+ }
+ %>
+ <%-- end web service invocation --%><hr/>
+ <%-- start web service invocation --%><hr/>
+ <%
+ try {
+ org.me.calculator.CalculatorWS_Service service = new org.me.calculator.CalculatorWS_
+Service();
+ org.me.calculator.CalculatorWS port = service.getCalculatorWSPort();
+ // TODO initialize WS operation arguments here
+ int i = 0;
+ int j = 0;
+ // TODO process result here
+ int result = port.sub(i, j);
+ out.println("Result = "+result);
+ } catch (Exception ex) {
+ // TODO handle custom exceptions here
+ }
+ %>
+ <%-- end web service invocation --%><hr/>
+
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+%-- start web service invocation --%><hr/>
+ <%
+ try {
+ org.me.calculator.CalculatorWS_Service service = new org.me.calculator.CalculatorWS_
+Service();
+ org.me.calculator.CalculatorWS port = service.getCalculatorWSPort();
+ // TODO initialize WS operation arguments here
+ int i = 3;
+ int j = 4;
+ // TODO process result here
+ int result = port.add(i, j);
+ out.println("Addition Result = "+result);
+ } catch (Exception ex) {
+ // TODO handle custom exceptions here
+ }
+ %>
+ <%-- end web service invocation --%><hr/>
+ 
+ <%-- start web service invocation --%><hr/>
+ <%
+ try {
+ org.me.calculator.CalculatorWS_Service service = new org.me.calculator.CalculatorWS_
+Service();
+ org.me.calculator.CalculatorWS port = service.getCalculatorWSPort();
+ // TODO initialize WS operation arguments here
+ int i = 5;
+ int j = 4;
+ // TODO process result here
+ int result = port.sub(i, j);
+ out.println("Substraction Result = "+result);
+ } catch (Exception ex) {
+ // TODO handle custom exceptions here
+ }
+ %>
+ <%-- end web service invocation --%><hr/>
+
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+GAE Program
+
+HelloAppEngine.java
+package com.GAE;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(
+    name = "HelloAppEngine",
+    urlPatterns = {"/hello"}
+)
+public class HelloAppEngine extends HttpServlet {
+
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) 
+      throws IOException {
+
+    response.setContentType("text/plain");
+    response.setCharacterEncoding("UTF-8");
+
+    response.getWriter().print("Add and Product App\r\n");
+    int num1 = Integer.parseInt(request.getParameter("num1"));
+    int num2 = Integer.parseInt(request.getParameter("num2"));
+    int sum = num1 + num2;
+    int product = num1 * num2;
+    PrintWriter output = response.getWriter();
+    output.println("The Addition Result : "+sum +"\n The Product :"+product);
+  }
+}
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+    <title>Hello App Engine</title>
+  </head>
+
+  <body>
+    <h1>Hello App Engine!</h1>
+
+    <table>
+      <tr>
+        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
+      </tr>
+      <tr>
+        <td><a href='/hello'>This is a new servlet program</a></td>
+      </tr>
+    </table>
+    <form action="add_me">
+    <label>First Number </label> <input type="text" name="num1"/><br /><br />
+    <label>Second Number </label> <input type="text" name="num2"/><br /><br />
+    <button type="submit" name="calculate">Product and Sum</button><br />
+    </form>
+  </body>
+</html>
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+  <servlet-name>Add</servlet-name>
+  <servlet-class>com.GAE.HelloAppEngine</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>Add</servlet-name>
+  <url-pattern>/add_me</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+--Virtual Machine USING AZURE
+https://docs.microsoft.com/en-us/learn/modules/create-windows-virtual-machine-in-azure/2-create-a-windowsvirtual-machine
+
+--Activate sandbox
+https://docs.microsoft.com/en-us/learn/modules/create-windows-virtual-machine-in-azure/3-exercise-create-a-vm
+
